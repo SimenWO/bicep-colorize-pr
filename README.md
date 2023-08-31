@@ -14,12 +14,12 @@ The action is useful for Continuous Integration scenarios where you want the app
 
 ### Prerequisites
 
-- `pull-request: write`:
+- `pull-request: write`
   - permission on the runner as this action will post a comment on a pull request
-- `contents: read`:
+- `contents: read`
   - Allows the workflow to read the contents of the repository.
-- `id-token: write`:
-  - This is generally used to obtain an ID token for the GITHUB_TOKEN, which in turn can be used to authenticate in a workflow run. This is a more specialized permission and is typically not needed for most workflows unless you're specifically dealing with authentication mechanisms that require the ID token. In this example I'm using Azure Login with OpenID Connect and it's therefor required.
+- `id-token: write`
+  - This is generally used to obtain an ID token for the `GITHUB_TOKEN`, which in turn can be used to authenticate in a workflow run. This is a more specialized permission and is typically not needed for most workflows unless you're specifically dealing with authentication mechanisms that require the ID token. In this example, I'm using Azure Login with OpenID Connect, and therefore it's required.
 
 ### Usage
 
