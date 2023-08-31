@@ -26,7 +26,7 @@ The action is useful for Continuous Integration scenarios where you want the app
 ```yml
 steps:
   - name: Bicep Colorized PR
-    uses: simenwo/bicep-colorize-pr@1.0.0
+    uses: simenwo/bicep-colorize-pr@v1.0.0
     with:
       location: westeurope
       template-file: main.bicep
@@ -87,7 +87,7 @@ jobs:
           subscription-id: ${{ env.ARM_SUBSCRIPTION_ID }}
 
       - name: Load Result
-        uses: simenwo/bicep-colorize-pr@v1
+        uses: simenwo/bicep-colorize-pr@v1.0.0
         with:
           location: westeurope
           template-file: main.bicep
