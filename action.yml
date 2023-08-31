@@ -1,0 +1,34 @@
+name: "Bicep Colorize Pull Request"
+description: "Create a pull request and colorize the Bicep 'what-if' using GitHub's built-in capabilities"
+
+branding:
+  icon: "git-pull-request"
+  color: "red"
+
+inputs:
+  location:
+    description: "Location of the deployment"
+    required: true
+  template-file:
+    description: "Bicep template file"
+    default: ./main.bicep
+    required: true
+  parameters-file:
+    description: "Bicep parameters file"
+    required: true
+    default: ./parameters.json
+  token:
+    description: "GITHUB_TOKEN secret to authenticate the workflow job"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Generate what-if"
+      run: |
+        az deployment sub what-if --location ${{ inputs.location }} --template-file ${{ inputs.template-file }} --parameters ${{ inputs.parameters-file }} > results.md
+        sed -i -e '1s/^/```diff\n/' -e '$a```' -e 's/~/!/g' -e 's/^[ \t]*//' results.md
+        gh pr comment ${{ github.event.pull_request.number }} --body-file ./results.md
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
